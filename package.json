@@ -1,0 +1,19 @@
+{
+  "name": "wl-api",
+  "version": "0.0.0",
+  "description": "API API for web services providedby the project Wortschatz, University of Leipzig",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rostu/wl-api.git"
+  },
+  "author": "Rostu <Robert.Studtrucker@googlemail.com> (http://rostu.de/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rostu/wl-api/issues"
+  },
+  "homepage": "https://github.com/Rostu/wl-api"
+}
