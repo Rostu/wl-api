@@ -2,9 +2,15 @@
 var xmlparser = require('xml2js');
 
 var debug;
+var cheerio = require('cheerio')
+var parseString = require('xml2js').parseString; // Parsing XML to JSON
+
+// Call back
+
 module.exports = {
     baseform: function(val,count) {
-            }}
+
+    }}
 
 
 
@@ -15,28 +21,39 @@ var options = {
     namespaces: {
         'xmlns:dat': 'http://datatypes.webservice.wortschatz.uni_leipzig.de',
         'xmlns:urn': "Baseform"},
-    BasicAuth: ['anonymous', 'anonymous'],
     log: debug
 
 };
 var body = {
     objRequestParameters: {
-        corpus:'de',
-        parameters: { dataVectors: ['urn:dataRow', ['Wort', "Esel"] ] }}
+        corpus: "de",
+        parameters: {
+            dataVectors: [
+                    {dataRow: ["Wort", "fuhr"]}
+            ]
+        }
+    }
 };
 
 var url = 'http://wortschatz.uni-leipzig.de/axis/services/Baseform?wsdl';
 
 soap.createClient(url,options, function(err, client) {
+    client.setSecurity(new soap.BasicAuthSecurity('anonymous', 'anonymous'));
     if(err){
         console.log(err)
     }else {
         console.log('Client created');
-        console.log(client.describe()   );
+        //console.log(client.describe());
         //console.log(client); //all methods usable in the stub
 
-        client.execute({message: body}, function(err, result) {
-            console.log(result.body);
+        client.execute(body, function(err, result) {
+            if(err){
+                console.log(err.body)
+            }else {
+                //var test = JSON.stringify(result);
+                //console.log(test);
+                console.log(result.executeReturn.result.dataVectors[0].dataRow);
+            }
         });
     }
 });
