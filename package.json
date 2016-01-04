@@ -1,7 +1,7 @@
 {
   "name": "wl-api",
   "version": "0.0.0",
-  "description": "API API for web services providedby the project Wortschatz, University of Leipzig",
+  "description": "API for web services provided by the project Wortschatz, University of Leipzig",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,5 +20,9 @@
     "cheerio": "^0.19.0",
     "soap": "^0.11.1",
     "xml2js": "^0.4.15"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4"
   }
 }
