@@ -238,7 +238,7 @@ function create_results(res){
 
 //------------------------------------------------------------------------------------------------------------------------
 //test
-
+/*
 var testarg = [{dataRow: ["Pattern", "Esel"]},{dataRow: ["Limit", 5]}];
 var testarg2 = [{dataRow: ["Wort", "Esel"]}];
 var testarg3 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
@@ -246,12 +246,12 @@ var coocurencearg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Mindestsignifikanz"
 var Kookurrenzschnitt = [{dataRow: ["Wort 1", "Esel"]},{dataRow: ["Wort 2", "Karren"]},{dataRow: ["Limit", 5]}];
 var crossword = [{dataRow: ["Wort", "Flug"]},{dataRow: ['Wortlaenge', 6]},{dataRow: ["Limit", 5]}];
 
-
 query("Frequencies",testarg2, function(err, callback){
     //console.log(callback);
     //console.log(underscore.flatten(create_results(callback)));
     console.log(create_results(callback));
 });
+*/
 //console.log(client.describe());
 //console.log(client.describe());
 //console.log(client); //all methods usable in the stub
