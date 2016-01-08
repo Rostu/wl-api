@@ -18,9 +18,7 @@
   "homepage": "https://github.com/Rostu/wl-api",
   "dependencies": {
     "async": "^1.5.1",
-    "cheerio": "^0.19.0",
-    "soap": "^0.11.1",
-    "xml2js": "^0.4.15"
+    "soap": "^0.11.1"
   },
   "devDependencies": {
     "chai": "^3.4.1",
