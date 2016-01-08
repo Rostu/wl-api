@@ -56,10 +56,9 @@ module.exports = {
     },
     baseform: function(word) {
 
-    },
+    }
 
-
-}
+};
 //Function for single query's
 //For query's in a larger scale it would be preferable not to create a client each time,
 //but to use one client for all query's.
