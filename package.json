@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Rostu/wl-api",
   "dependencies": {
+    "async": "^1.5.1",
     "soap": "^0.11.1"
   },
   "devDependencies": {
