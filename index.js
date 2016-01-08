@@ -1,11 +1,6 @@
 
-//var xmlparser = require('xml2js');
-//var async = require('async');
-//var parseString = require('xml2js').parseString; // Parsing XML to JSON
 var soap = require('soap');
 var underscore = require("underscore");
-
-// Call back
 
 module.exports = {
     //Should returns the lemmatized (base) form of the input word.
