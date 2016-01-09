@@ -1,6 +1,6 @@
 {
   "name": "wl-api",
-  "version": "0.1.0",
+  "version": "0.7.0",
   "description": "API for web services provided by the project Wortschatz, University of Leipzig",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,8 @@
   "homepage": "https://github.com/Rostu/wl-api",
   "dependencies": {
     "async": "^1.5.1",
-    "soap": "^0.11.1"
+    "soap": "^0.11.1",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "chai": "^3.4.1",
