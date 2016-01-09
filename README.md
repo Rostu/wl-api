@@ -5,6 +5,10 @@ wl-api is a javascript API for web services provided by the project Wortschatz, 
 
 http://wortschatz.uni-leipzig.de/
 
+For further informations on the services: 
+
+http://wortschatz.uni-leipzig.de/Webservices/
+
 Their SOAP Web Service offers different research possibilities for their German dictionary, including informations on wordfrequencies, baseforms, left and right neighbours, collocations and semantic similarity.
 You can access those informations via SOAP requests.
 This module provides functions to generate the requests and get the informations from the corresponding answers.
@@ -37,21 +41,21 @@ var wlapi = require('wl-api');
 
 wlapi.baseform("Wälder"); --> [ [ 'Wald', 'N' ] ]
 ```
-##Methods
+#Methods
 all the following examples assume you have declared a variable wlapi that require wl-api
 e.g.
 ```
 var wlapi = require('wl-api');
 ```
 
-####baseform
+###baseform
 returns the lemmatized (base) form of the input word and a pos tag or 
 returns array of possible baseforms with pos tags.
 ```
 wlapi.baseform("Bäume") --> [ [ 'Baum', 'N' ] ]
 ```
 
-####frequencies
+###frequencies
 Returns the frequency and frequency class of the input word.
 Frequency class is computed in relation to the most frequent word in the corpus.
 The higher the class, the rarer the word.
@@ -59,14 +63,14 @@ The higher the class, the rarer the word.
 wlapi.frequencies("Esel"); --> [ '3524', '12' ]
 ```
 
-####domain
+###domain
 Returns categories for a given input word as an array.
 ```
 wlapi.domain("Esel"); 
 --> [ 'Spezielle Zoologie','Säugetiere','Nutztiere','pejorativ','Menschen psychisch' ]
 ```
 
-####wordforms
+###wordforms
 For a given word form returns all other word forms of the same lemma.
 
 wlapi.wordforms("string word",int limit); 
@@ -75,7 +79,7 @@ wlapi.wordforms("laufen",5);
 --> [ 'läuft', 'laufen', 'lief', 'gelaufen', 'liefen' ]
 ```
 
-####synonyms
+###synonyms
 Returns synonyms of the input word. In other words, this is a thesaurus.
 
 wlapi.synonyms("string word",int limit); 
@@ -88,7 +92,7 @@ wlapi.synonyms("Esel",5);
   [ 'Grautier', 'S' ] ]
 ```
 
-####thesaurus
+###thesaurus
 Similarly the Synonyms services returns synonyms of the given input word. However, this first lemmatizes the input word and thus returns more synonyms.
 
 wlapi.thesaurus("string word",int limit); 
@@ -97,7 +101,7 @@ wlapi.wordforms("Esel",5);
 -->[ 'Pferd', 'Esel', 'Rind', 'Kamel', 'Büffel' ]
 ```
 
-####sentences
+###sentences
 Returns sample sentences containing the input word.
 
 wlapi.sentences("string word",int limit); 
@@ -109,7 +113,7 @@ wlapi.sentences("Bücher",2);
     'Nachdem er 1973 die Leitung des Feuilletons aufgegeben hatte und stellvertretender Chefredakteur geworden war, wurde das Spektrum seiner Artikel und Bücher noch breiter.' ] ]
 ```
 
-####left_neighbours
+###left_neighbours
  For a given input word, returns statistically significant left neighbours. (words co-occurring immediately to the left of the input word)
  wlapi.left_neighbours("string word",int limit);
 ```
@@ -121,7 +125,7 @@ wlapi.left_neighbours("Esel",5);
   [ 'dummer', 'Esel', '16' ] ]
 ```
  
-####right_neighbours
+###right_neighbours
 For a given input word, returns statistically significant right neighbours. (words co-occurring immediately to the right of the input word).
 wlapi.right_neighbours("string word",int limit);
 ```
@@ -133,7 +137,7 @@ wlapi.right_neighbours("Esel",5);
   [ 'Esel', 'I-Aah', '14' ] ]
 ```
 
-####similarity
+###similarity
 Returns automatically computed contextually similar words of the input word. Such similar words may be antonyms, hyperonyms, synonyms, cohyponyms or other. Note that due to the huge amount of data any query to this services may take a long time.
 wlapi.similarity("string word",int limit);
 ```
@@ -145,7 +149,7 @@ wlapi.similarity("Esel",5);
   [ 'Esel', 'andern', '14' ] ]
 ```
 
-####experimental_synonyms
+###experimental_synonyms
 This service delivers an experimental synonyms request for internal tests.
 wlapi.experimental_synonyms("string word",int limit);
 ```
@@ -157,7 +161,7 @@ wlapi.experimental_synonyms("Esel",5);
   [ 'Muli', 'v' ] ]
 ```
 
-####right_collocation_finder
+###right_collocation_finder
 Attempts to find linguistic collocations that occur to the right of the given input word. The parameter Wortart accepts four values A,V,N,S which stand for adjective, verb, noun and stopword, respectively. The parameter restricts the type of words found.
 wlapi.right_collocation_finder("string word",string postag,int limit); 
 ```
@@ -171,7 +175,7 @@ wlapi.right_collocation_finder("Esel","V",5);
 
 
 
-####left_collocation_finder
+###left_collocation_finder
 Attempts to find linguistic collocations that occur to the left of the given input word. The parameter Wortart accepts four values A,V,N,S which stand for adjective, verb, noun and stopword, respectively. The parameter restricts the type of words found.
 wlapi.left_collocation_finder("string word",string postag,int limit); 
 ```
@@ -184,3 +188,34 @@ wlapi.left_collocation_finder("Esel","A",7);
   [ 'bockend', 'A', 'Esel' ],
   [ 'dumm', 'A', 'Esel' ]]
 ```
+
+###cooccurrences
+Returns statistically significant co-occurrences of the input word.
+wlapi.cooccurrences("string word",int least significant,int limit); 
+```
+wlapi.cooccurrences("Esel",200,5); 
+-->[ [ 'Esel', 'Ochs', '484' ],
+  [ 'Esel', 'und', '364' ],
+  [ 'Esel', 'ein', '213' ] ]
+```
+
+###cooccurrences_all
+Returns statistically significant co-occurrences of the input word. However, the accesses the unrestricted version of the co-occurrences table as in the Cooccurrences services, which means significantly longer wait times.
+####to use this service you have to have a user account different from anonymous
+wlapi.cooccurrences("string word",int least significant,int limit); 
+```
+wlapi.cooccurrences_all("Esel",200,5); 
+```
+
+####intersection
+Returns the intersection of the co-occurrences of the two given words. The result set is ordered according to the sum of the significances in descending order. Note that due to the join involved, this make take some time.
+####to use this service you have to have a user account different from anonymous
+wlapi.intersection("string word1",string word2,int limit); 
+
+
+###crossword
+Given a pattern and a length, returns words that match these parameters.
+--> not sure how this works..
+wlapi.crossword("string word",int word_lenght,int limit); 
+
+###to be implemented: ngrams and ngram_references
