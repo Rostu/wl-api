@@ -205,13 +205,13 @@ function query(service,arg,cb) {
         client.setSecurity(new soap.BasicAuthSecurity('anonymous', 'anonymous'));
         if(err){
             console.log("Client create Error: "+err);
-            return (err);
+            cb (null,{Message:"Client create Error occured",Error: err});
         }else {
-            console.log("Client created");
+            //console.log("Client created");
             client.execute(body, function(err, result) {
                 if(err){
-                    //console.log("query Error: "+err.body);
-                    return (err.body);
+                    console.log("query Error: "+err.body);
+                    cb (null,{Message:"Query Error occured",Error: err.body});
                 }else {
                     if(result.executeReturn.result.dataVectors){
                         //console.log(result.executeReturn.result);
@@ -228,30 +228,37 @@ function query(service,arg,cb) {
 //it returns an array with one or more arrays of the results
 //e.g. [ [ 'trübe', 'A' ], [ 'trüben', 'V' ] ]
 function create_results(res){
-    if(res){
-        var resultarray = [];
-        var helparray = [];
-        for (var i = 0; i < res.length; i++) {
-            helparray.push(res[i].dataRow);
-        }
-        //this is needed to delete double entry's from the results which sometimes appear
-        //this creates a hash for each joined resultentry([ 'trüben', 'V' ] --> 'trübenV') and sorts the resultarray based on these hashes
-        var hash = {};
-        for (var i = 0, l = helparray.length; i < l; i++) {
-            var key = helparray[i].join('|');
-            if (!hash[key]) {
-                resultarray.push(helparray[i]);
-                hash[key] = 'found';
+    if(res) {
+        if (res.Message) {
+            return res;
+        } else {
+            var resultarray = [];
+            var helparray = [];
+            for (var i = 0; i < res.length; i++) {
+                helparray.push(res[i].dataRow);
             }
+            //this is needed to delete double entry's from the results which sometimes appear
+            //this creates a hash for each joined resultentry([ 'trüben', 'V' ] --> 'trübenV') and sorts the resultarray based on these hashes
+            var hash = {};
+            for (var i = 0, l = helparray.length; i < l; i++) {
+                var key = helparray[i].join('|');
+                if (!hash[key]) {
+                    resultarray.push(helparray[i]);
+                    hash[key] = 'found';
+                }
+            }
+            return resultarray;
         }
-        return(resultarray);
+    }else if(res == null){
+        return null;
     }
 }
 
 //------------------------------------------------------------------------------------------------------------------------
 //test
+
 /*
-var testarg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Limit", 7]}];
+var testarg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Limit",5]}];
 var testarg2 = [{dataRow: ["Wort", "Bäume"]}];
 var testarg3 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
 var coocurencearg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Mindestsignifikanz", 200]},{dataRow: ["Limit", 10]}];
@@ -260,13 +267,13 @@ var crossword = [{dataRow: ["Wort", "verkaufen"]},{dataRow: ['Wortlaenge', 4]},{
 var NGramarg = [{dataRow: ["Pattern", "der Esel"]},{dataRow: ["Limit", 10]}];
 var testarg4 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
 
-query("Kreuzwortraetsel",crossword, function(err, callback){
-    console.log(callback);
+query("Synonyms",testarg, function(err, callback){
+    //console.log(callback);
     //console.log(underscore.flatten(create_results(callback)));
     console.log(create_results(callback));
 });
-
 */
+
 //console.log(client.describe());
 //console.log(client.describe());
 //console.log(client); //all methods usable in the stub

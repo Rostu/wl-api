@@ -17,5 +17,4 @@ describe('#baseform', function() {
         baseform('gefahren')[1].should.equal("V");
     });
 
-
 });
