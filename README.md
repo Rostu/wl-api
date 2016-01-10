@@ -51,7 +51,7 @@ if there is no search reult for your query you get null
 ```
 wlapi.baseform("Wildssdflder"); --> null
 ```
-and if something went wrong u get an JSON Object like:
+and if something went wrong you get an JSON Object like:
 ```
 { Message: 'Query Error occured',
   Error: '<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><soapenv:Fault><faultcode>soapenv:Server.userException</faultcode><faultstring>java.lang.ArrayIndexOutOfBoundsException: 1</faultstring><detail><ns1:hostname xmlns:ns1="http://xml.apache.org/axis/">pcai055.informatik.uni-leipzig.de</ns1:hostname></detail></soapenv:Fault></soapenv:Body></soapenv:Envelope>' }
@@ -217,7 +217,7 @@ wlapi.cooccurrences("Esel",200,5);
 
 ###cooccurrences_all
 Returns statistically significant co-occurrences of the input word. However, the accesses the unrestricted version of the co-occurrences table as in the Cooccurrences services, which means significantly longer wait times.
-####to use this service you have to have a user account different from anonymous
+####to use this service you need a user account different from anonymous
 wlapi.cooccurrences("string word",int least significant,int limit); 
 ```
 wlapi.cooccurrences_all("Esel",200,5); 
@@ -225,7 +225,7 @@ wlapi.cooccurrences_all("Esel",200,5);
 
 ####intersection
 Returns the intersection of the co-occurrences of the two given words. The result set is ordered according to the sum of the significances in descending order. Note that due to the join involved, this make take some time.
-####to use this service you have to have a user account different from anonymous
+####to use this service you need a user account different from anonymous
 
 wlapi.intersection("string word1",string word2,int limit); 
 
