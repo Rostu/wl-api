@@ -1,103 +1,105 @@
 
 var soap = require('soap');
 var underscore = require("underscore");
+var credentials = ["anonymous","anonymous"];
+//var credentials = ["",""];
 
 module.exports = {
     //Should returns the lemmatized (base) form of the input word.
     //returns array of possible baseforms in some cases
     //wlapi.baseform("")-->
-    baseform: function(word) {
+    baseform: function(word,cb) {
         var arg = [{dataRow: ["Wort", word]}];
         query("Baseform",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     },
     //Returns the frequency and frequency class of the input word.
     //Frequency class is computed in relation to the most frequent word in the corpus.
     // The higher the class, the rarer the word.
     //wlapi.frequencies("Esel")-->[ '3524', '12' ]
-    frequencies: function(word) {
+    frequencies: function(word,cb) {
         var arg = [{dataRow: ["Wort", word]}];
         query("Frequencies",arg, function(err,callback){
-            return underscore.flatten(create_results(callback));
+            cb(null,underscore.flatten(create_results(callback)));
         });
     },
     //Returns categories for a given input word as an array:
-    domain: function(word) {
+    domain: function(word,cb) {
         var arg = [{dataRow: ["Wort", word]}];
         query("Sachgebiet",arg, function(err,callback){
-            return underscore.flatten(create_results(callback));
+            cb(null,underscore.flatten(create_results(callback)));
         });
     },
     //For a given word form returns all other word forms of the same lemma
-    wordforms: function(word,limit) {
+    wordforms: function(word,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Word", word]},{dataRow: ["Limit", limit]}];
         query("Wordforms",arg, function(err,callback){
-            return underscore.flatten(create_results(callback));
+            cb(null,underscore.flatten(create_results(callback)));
         });
     },
     //Similarly the Synonyms services returns synonyms of the given input word.
     //However, this first lemmatizes the input word and thus returns more synonyms.
-    thesaurus: function(word,limit) {
+    thesaurus: function(word,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
         query("Thesaurus",arg, function(err,callback){
-            return underscore.flatten(create_results(callback));
+            cb(null,underscore.flatten(create_results(callback)));
         });
     },
     //Returns synonyms of the input word. In other words, this is a thesaurus.
-    synonyms: function(word,limit) {
+    synonyms: function(word,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
         query("Synonyms",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
 
     },
     //Returns sample sentences containing the input word.
-    sentences: function(word,limit) {
+    sentences: function(word,limit,cb) {
         if(!limit){limit = 5;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
         query("Sentences",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     },
     // For a given input word, returns statistically significant left neighbours.
     // (words co-occurring immediately to the left of the input word)
-    left_neighbours: function(word,limit) {
+    left_neighbours: function(word,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
         query("LeftNeighbours",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
 
     },
     //For a given input word, returns statistically significant right neighbours.
     //(words co-occurring immediately to the right of the input word)
-    right_neighbours: function(word,limit) {
+    right_neighbours: function(word,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
         query("RightNeighbours",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     },
     //Returns automatically computed contextually similar words of the input word.
     //Such similar words may be antonyms, hyperonyms, synonyms, cohyponyms or other.
     //Note that due to the huge amount of data any query to this services may take a long time.
-    similarity: function(word,limit) {
+    similarity: function(word,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
         query("Similarity",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     },
     //This service delivers an experimental synonyms request for internal tests.
-    experimental_synonyms: function(word,limit) {
+    experimental_synonyms: function(word,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
         query("ExperimentalSynonyms",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     },
     /*not working so far----------------------------
@@ -118,7 +120,7 @@ module.exports = {
     */
     //Attempts to find linguistic collocations that occur to the right of the given input word.
     //The parameter Wortart accepts four values A,V,N,S which stand for adjective, verb, noun and stopword, respectively. The parameter restricts the type of words found.
-    right_collocation_finder: function(word,postag,limit) {
+    right_collocation_finder: function(word,postag,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Wortart", postag]},{dataRow: ["Limit", limit]}];
         query("RightCollocationFinder",arg, function(err,callback){
@@ -127,19 +129,19 @@ module.exports = {
     },
     //Attempts to find linguistic collocations that occur to the left of the given input word. The parameter Wortart accepts four values A,V,N,S which stand for adjective, verb, noun and stopword, respectively.
     //The parameter restricts the type of words found.
-    left_collocation_finder: function(word,postag,limit) {
+    left_collocation_finder: function(word,postag,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Wortart", postag]},{dataRow: ["Limit", limit]}];
         query("LeftCollocationFinder",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     },
     //Returns statistically significant co-occurrences of the input word.
-    cooccurrences: function(word,sign,limit) {
+    cooccurrences: function(word,sign,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Mindestsignifikanz", sign]},{dataRow: ["Limit", limit]}];
         query("Cooccurrences",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     },
     //to use this service you have to have a user account different from anonymous
@@ -147,23 +149,23 @@ module.exports = {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ["Mindestsignifikanz", sign]},{dataRow: ["Limit", limit]}];
         query("CooccurrencesAll",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     },
     //to use this service you have to have a user account different from anonymous
-    intersection: function(word1,word2,limit) {
+    intersection: function(word1,word2,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort 1", word1]},{dataRow: ["Wort 2", word2]},{dataRow: ["Limit", limit]}];
         query("Kookkurrenzschnitt",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     },
     //Takes some time
-    crossword: function(word, word_length,limit) {
+    crossword: function(word, word_length,limit,cb) {
         if(!limit){limit = 10;}
         var arg = [{dataRow: ["Wort", word]},{dataRow: ['Wortlaenge', word_length]},{dataRow: ["Limit", limit]}];
         query("Kreuzwortraetsel",arg, function(err,callback){
-            return create_results(callback);
+            cb(null,create_results(callback));
         });
     }
 
@@ -193,6 +195,7 @@ function getOptions(name,arg){
     });
     return result;
 }
+
 //this function takes the name of desired service and the searchterm to create a soap client and execute the query
 function query(service,arg,cb) {
     var callParams = getOptions(service,arg);
@@ -202,7 +205,7 @@ function query(service,arg,cb) {
     var results =[];
     //kind of a callback hell (note for me look into async)
     soap.createClient(url,options, function(err, client) {
-        client.setSecurity(new soap.BasicAuthSecurity('anonymous', 'anonymous'));
+        client.setSecurity(new soap.BasicAuthSecurity(credentials[0], credentials[1]));
         if(err){
             console.log("Client create Error: "+err);
             cb (null,{Message:"Client create Error occured",Error: err});
@@ -267,7 +270,7 @@ var crossword = [{dataRow: ["Wort", "verkaufen"]},{dataRow: ['Wortlaenge', 4]},{
 var NGramarg = [{dataRow: ["Pattern", "der Esel"]},{dataRow: ["Limit", 10]}];
 var testarg4 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
 
-query("Synonyms",testarg, function(err, callback){
+query("Baseform",testarg2, function(err, callback){
     //console.log(callback);
     //console.log(underscore.flatten(create_results(callback)));
     console.log(create_results(callback));
