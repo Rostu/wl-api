@@ -22,7 +22,7 @@ be interested in other language specific bindings:
 * C#  http://code-bude.net/2013/07/22/csharp-api-fuer-den-wortschatz-leipzig-thesaurus-webservic/
 * PHP http://web.archive.org/web/20090418233940/http://blog.klassifikator.de/2009/03/php-implementierung-des-wortschatz-webservice-der-uni-leipzig/
 
-So far the Module is not suited to do mass requests, you need private credentials for that i haven't implemented the possibility to change the standard authorization("anonymous","anonymous").
+So far the Module is not suited to do mass requests, you need private credentials for that and i haven't implemented the possibility to change the standard authorization("anonymous","anonymous").
 The possibility to use your own private credentials will be added in a later version.
 To get private credentials you should contact the support team of the project Wortschatz.
 
