@@ -22,11 +22,17 @@ be interested in other language specific bindings:
 * C#  http://code-bude.net/2013/07/22/csharp-api-fuer-den-wortschatz-leipzig-thesaurus-webservic/
 * PHP http://web.archive.org/web/20090418233940/http://blog.klassifikator.de/2009/03/php-implementierung-des-wortschatz-webservice-der-uni-leipzig/
 
+So far the Module is not suited to do mass requests, you need private credentials for that i haven't implemented the possibility to change the standard authorization("anonymous","anonymous").
+The possibility to use your own private credentials will be added in a later version.
+To get private credentials you should contact the support team of the project Wortschatz.
+
+
 You can easily use this module with nodejs projects.
+
+##Synopsis
 
 just install it via 
 ```
-not published so far.. will be online the next days
 npm install wl-api
 ````
 or
@@ -41,6 +47,16 @@ var wlapi = require('wl-api');
 
 wlapi.baseform("Wälder"); --> [ [ 'Wald', 'N' ] ]
 ```
+if there is no search reult for your query you get null
+```
+wlapi.baseform("Wildssdflder"); --> null
+```
+and if something went wrong u get an JSON Object like:
+```
+{ Message: 'Query Error occured',
+  Error: '<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><soapenv:Fault><faultcode>soapenv:Server.userException</faultcode><faultstring>java.lang.ArrayIndexOutOfBoundsException: 1</faultstring><detail><ns1:hostname xmlns:ns1="http://xml.apache.org/axis/">pcai055.informatik.uni-leipzig.de</ns1:hostname></detail></soapenv:Fault></soapenv:Body></soapenv:Envelope>' }
+```
+
 #Methods
 all the following examples assume you have declared a variable wlapi that require wl-api
 e.g.
@@ -210,12 +226,14 @@ wlapi.cooccurrences_all("Esel",200,5);
 ####intersection
 Returns the intersection of the co-occurrences of the two given words. The result set is ordered according to the sum of the significances in descending order. Note that due to the join involved, this make take some time.
 ####to use this service you have to have a user account different from anonymous
+
 wlapi.intersection("string word1",string word2,int limit); 
 
 
 ###crossword
 Given a pattern and a length, returns words that match these parameters.
 --> not sure how this works..
+
 wlapi.crossword("string word",int word_lenght,int limit); 
 
 ###to be implemented: ngrams and ngram_references
