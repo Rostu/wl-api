@@ -262,7 +262,7 @@ function create_results(res){
 //------------------------------------------------------------------------------------------------------------------------
 //test
 
-
+/*
 var testarg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Limit",5]}];
 var testarg2 = [{dataRow: ["Wort", "Bäume"]}];
 var testarg3 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
@@ -277,7 +277,7 @@ query("Baseform",testarg2, function(err, callback){
     //console.log(underscore.flatten(create_results(callback)));
     console.log(create_results(callback));
 });
-
+*/
 
 //console.log(client.describe());
 //console.log(client.describe());
