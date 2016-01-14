@@ -2,7 +2,6 @@
 var soap = require('soap');
 var underscore = require("underscore");
 var credentials = ["anonymous","anonymous"];
-//var credentials = ["",""];
 
 module.exports = {
     //Should returns the lemmatized (base) form of the input word.
@@ -167,6 +166,9 @@ module.exports = {
         query("Kreuzwortraetsel",arg, function(err,callback){
             cb(null,create_results(callback));
         });
+    },
+    set_credentials: function(user,pwd){
+        credentials =[user,pwd];
     }
 
 };
@@ -260,7 +262,7 @@ function create_results(res){
 //------------------------------------------------------------------------------------------------------------------------
 //test
 
-/*
+
 var testarg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Limit",5]}];
 var testarg2 = [{dataRow: ["Wort", "Bäume"]}];
 var testarg3 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
@@ -275,7 +277,7 @@ query("Baseform",testarg2, function(err, callback){
     //console.log(underscore.flatten(create_results(callback)));
     console.log(create_results(callback));
 });
-*/
+
 
 //console.log(client.describe());
 //console.log(client.describe());
