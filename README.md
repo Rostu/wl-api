@@ -22,11 +22,6 @@ be interested in other language specific bindings:
 * C#  http://code-bude.net/2013/07/22/csharp-api-fuer-den-wortschatz-leipzig-thesaurus-webservic/
 * PHP http://web.archive.org/web/20090418233940/http://blog.klassifikator.de/2009/03/php-implementierung-des-wortschatz-webservice-der-uni-leipzig/
 
-So far the Module is not suited to do mass requests, you need private credentials for that and i haven't implemented the possibility to change the standard authorization("anonymous","anonymous").
-The possibility to use your own private credentials will be added in a later version.
-To get private credentials you should contact the support team of the project Wortschatz.
-
-
 You can easily use this module with nodejs projects.
 
 ##Synopsis
@@ -62,6 +57,13 @@ and if something went wrong you get an JSON Object like:
 { Message: 'Query Error occured',
   Error: '<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><soapenv:Fault><faultcode>soapenv:Server.userException</faultcode><faultstring>java.lang.ArrayIndexOutOfBoundsException: 1</faultstring><detail><ns1:hostname xmlns:ns1="http://xml.apache.org/axis/">pcai055.informatik.uni-leipzig.de</ns1:hostname></detail></soapenv:Fault></soapenv:Body></soapenv:Envelope>' }
 ```
+
+If you are going to do mass requests, you need private credentials, for that you can change the standard authorization("anonymous","anonymous") with a function:
+```
+wlapi.set_credentials(String user,String password);
+```
+To get private credentials you should contact the support team of the project Wortschatz.
+
 
 #Methods
 all the following examples assume you have declared a variable wlapi that require wl-api
