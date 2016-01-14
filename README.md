@@ -22,6 +22,10 @@ be interested in other language specific bindings:
 * C#  http://code-bude.net/2013/07/22/csharp-api-fuer-den-wortschatz-leipzig-thesaurus-webservic/
 * PHP http://web.archive.org/web/20090418233940/http://blog.klassifikator.de/2009/03/php-implementierung-des-wortschatz-webservice-der-uni-leipzig/
 
+
+I'd like to give special thanks to [Andrej Belenkow](http://www.uni-trier.de/index.php?id=24140) whose implementation of an api for ruby ([wlapi](https://github.com/arbox/wlapi/)) helped me alot to understand how the soap requests for the Wortschatz Leipzig projects work.   
+
+
 You can easily use this module with nodejs projects.
 
 ##Synopsis
@@ -275,4 +279,7 @@ Given a pattern and a length, returns words that match these parameters.
 
 wlapi.crossword("string word",int word_lenght,int limit); 
 
-###to be implemented: ngrams and ngram_references
+####to be implemented: ngrams and ngram_references
+
+
+
