@@ -2,104 +2,141 @@
 var soap = require('soap');
 var underscore = require("underscore");
 var credentials = ["anonymous","anonymous"];
-
+var testargs = [];
 module.exports = {
     //Should returns the lemmatized (base) form of the input word.
     //returns array of possible baseforms in some cases
     //wlapi.baseform("")-->
     baseform: function(word,cb) {
-        var arg = [{dataRow: ["Wort", word]}];
-        query("Baseform",arg, function(err,callback){
-            cb(null,create_results(callback));
-        });
+        if(check_arguments(arguments,2)) {
+            var arg = [{dataRow: ["Wort", word]}];
+            query("Baseform", arg, function (err, callback) {
+                cb(null, create_results(callback));
+            });
+        }
     },
     //Returns the frequency and frequency class of the input word.
     //Frequency class is computed in relation to the most frequent word in the corpus.
     // The higher the class, the rarer the word.
     //wlapi.frequencies("Esel")-->[ '3524', '12' ]
     frequencies: function(word,cb) {
-        var arg = [{dataRow: ["Wort", word]}];
-        query("Frequencies",arg, function(err,callback){
-            cb(null,underscore.flatten(create_results(callback)));
-        });
+        if(check_arguments(arguments,2)) {
+            var arg = [{dataRow: ["Wort", word]}];
+            query("Frequencies", arg, function (err, callback) {
+                cb(null, underscore.flatten(create_results(callback)));
+            });
+        }
     },
     //Returns categories for a given input word as an array:
     domain: function(word,cb) {
-        var arg = [{dataRow: ["Wort", word]}];
-        query("Sachgebiet",arg, function(err,callback){
-            cb(null,underscore.flatten(create_results(callback)));
-        });
+        if(check_arguments(arguments,2)) {
+            var arg = [{dataRow: ["Wort", word]}];
+            query("Sachgebiet", arg, function (err, callback) {
+                cb(null, underscore.flatten(create_results(callback)));
+            });
+        }
     },
     //For a given word form returns all other word forms of the same lemma
     wordforms: function(word,limit,cb) {
-        if(!limit){limit = 10;}
-        var arg = [{dataRow: ["Word", word]},{dataRow: ["Limit", limit]}];
-        query("Wordforms",arg, function(err,callback){
-            cb(null,underscore.flatten(create_results(callback)));
-        });
+        if(check_arguments(arguments,3)) {
+            if (!limit) {
+                limit = 10;
+            }
+            var arg = [{dataRow: ["Word", word]}, {dataRow: ["Limit", limit]}];
+            query("Wordforms", arg, function (err, callback) {
+                cb(null, underscore.flatten(create_results(callback)));
+            });
+        }
     },
     //Similarly the Synonyms services returns synonyms of the given input word.
     //However, this first lemmatizes the input word and thus returns more synonyms.
     thesaurus: function(word,limit,cb) {
-        if(!limit){limit = 10;}
-        var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
-        query("Thesaurus",arg, function(err,callback){
-            cb(null,underscore.flatten(create_results(callback)));
-        });
+        if(check_arguments(arguments,3)) {
+            if (!limit) {
+                limit = 10;
+            }
+            var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Limit", limit]}];
+            query("Thesaurus", arg, function (err, callback) {
+                cb(null, underscore.flatten(create_results(callback)));
+            });
+        }
     },
     //Returns synonyms of the input word. In other words, this is a thesaurus.
     synonyms: function(word,limit,cb) {
-        if(!limit){limit = 10;}
-        var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
-        query("Synonyms",arg, function(err,callback){
-            cb(null,create_results(callback));
-        });
-
+        if(check_arguments(arguments,3)) {
+            if (!limit) {
+                limit = 10;
+            }
+            var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Limit", limit]}];
+            query("Synonyms", arg, function (err, callback) {
+                cb(null, create_results(callback));
+            });
+        }
     },
     //Returns sample sentences containing the input word.
     sentences: function(word,limit,cb) {
-        if(!limit){limit = 5;}
-        var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
-        query("Sentences",arg, function(err,callback){
-            cb(null,create_results(callback));
-        });
+        if(check_arguments(arguments,3)) {
+            if (!limit) {
+                limit = 5;
+            }
+            var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Limit", limit]}];
+            query("Sentences", arg, function (err, callback) {
+                cb(null, create_results(callback));
+            });
+        }
     },
     // For a given input word, returns statistically significant left neighbours.
     // (words co-occurring immediately to the left of the input word)
     left_neighbours: function(word,limit,cb) {
-        if(!limit){limit = 10;}
-        var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
-        query("LeftNeighbours",arg, function(err,callback){
-            cb(null,create_results(callback));
-        });
+        if(check_arguments(arguments,3)) {
+            if (!limit) {
+                limit = 10;
+            }
+            var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Limit", limit]}];
+            query("LeftNeighbours", arg, function (err, callback) {
+                cb(null, create_results(callback));
+            });
+        }
 
     },
     //For a given input word, returns statistically significant right neighbours.
     //(words co-occurring immediately to the right of the input word)
     right_neighbours: function(word,limit,cb) {
-        if(!limit){limit = 10;}
-        var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
-        query("RightNeighbours",arg, function(err,callback){
-            cb(null,create_results(callback));
-        });
+        if(check_arguments(arguments,3)) {
+            if (!limit) {
+                limit = 10;
+            }
+            var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Limit", limit]}];
+            query("RightNeighbours", arg, function (err, callback) {
+                cb(null, create_results(callback));
+            });
+        }
     },
     //Returns automatically computed contextually similar words of the input word.
     //Such similar words may be antonyms, hyperonyms, synonyms, cohyponyms or other.
     //Note that due to the huge amount of data any query to this services may take a long time.
     similarity: function(word,limit,cb) {
-        if(!limit){limit = 10;}
-        var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
-        query("Similarity",arg, function(err,callback){
-            cb(null,create_results(callback));
-        });
+        if(check_arguments(arguments,3)) {
+            if (!limit) {
+                limit = 10;
+            }
+            var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Limit", limit]}];
+            query("Similarity", arg, function (err, callback) {
+                cb(null, create_results(callback));
+            });
+        }
     },
     //This service delivers an experimental synonyms request for internal tests.
     experimental_synonyms: function(word,limit,cb) {
-        if(!limit){limit = 10;}
-        var arg = [{dataRow: ["Wort", word]},{dataRow: ["Limit", limit]}];
-        query("ExperimentalSynonyms",arg, function(err,callback){
-            cb(null,create_results(callback));
-        });
+        if(check_arguments(arguments,3)) {
+            if (!limit) {
+                limit = 10;
+            }
+            var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Limit", limit]}];
+            query("ExperimentalSynonyms", arg, function (err, callback) {
+                cb(null, create_results(callback));
+            });
+        }
     },
     /*not working so far----------------------------
     ngrams: function(pattern,limit) {
@@ -120,11 +157,15 @@ module.exports = {
     //Attempts to find linguistic collocations that occur to the right of the given input word.
     //The parameter Wortart accepts four values A,V,N,S which stand for adjective, verb, noun and stopword, respectively. The parameter restricts the type of words found.
     right_collocation_finder: function(word,postag,limit,cb) {
-        if(!limit){limit = 10;}
-        var arg = [{dataRow: ["Wort", word]},{dataRow: ["Wortart", postag]},{dataRow: ["Limit", limit]}];
-        query("RightCollocationFinder",arg, function(err,callback){
-            return create_results(callback);
-        });
+        if(check_arguments(arguments,4)) {
+            if (!limit) {
+                limit = 10;
+            }
+            var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Wortart", postag]}, {dataRow: ["Limit", limit]}];
+            query("RightCollocationFinder", arg, function (err, callback) {
+                return create_results(callback);
+            });
+        }
     },
     //Attempts to find linguistic collocations that occur to the left of the given input word. The parameter Wortart accepts four values A,V,N,S which stand for adjective, verb, noun and stopword, respectively.
     //The parameter restricts the type of words found.
@@ -172,6 +213,18 @@ module.exports = {
     }
 
 };
+
+function check_arguments(args,count){
+    if(args.length>count){
+        console.log("Error: Too many arguments");
+        return false;
+    }else if(typeof args[0] != 'string'){
+        console.log("Error: The query function needs a String argument");
+        return false;
+    }else{
+        return true;
+    }
+}
 //Function for single query's
 //For query's in a larger scale it would be preferable not to create a client each time,
 //but to use one client for all query's.
@@ -218,8 +271,7 @@ function query(service,arg,cb) {
                     console.log("query Error: "+err.body);
                     cb (null,{Message:"Query Error occured",Error: err.body});
                 }else {
-                    if(result.executeReturn.result.dataVectors){
-                        //console.log(result.executeReturn.result);
+                    if(result.executeReturn.result != null){
                         cb(null,result.executeReturn.result.dataVectors);
                     }else{cb(null,null);}
                 }
@@ -262,22 +314,23 @@ function create_results(res){
 //------------------------------------------------------------------------------------------------------------------------
 //test
 
-/*
+
 var testarg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Limit",5]}];
-var testarg2 = [{dataRow: ["Wort", "Bäume"]}];
-var testarg3 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
+var testarg2 = [{dataRow: ["Hottehü", []]}];
+var testarg3 = [{dataRow: ["Wort", "Hottehü"]},{dataRow: ["Limit", 10]}];
 var coocurencearg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Mindestsignifikanz", 200]},{dataRow: ["Limit", 10]}];
 var Kookurrenzschnitt = [{dataRow: ["Wort 1", "Esel"]},{dataRow: ["Wort 2", "Karren"]},{dataRow: ["Limit", 5]}];
 var crossword = [{dataRow: ["Wort", "verkaufen"]},{dataRow: ['Wortlaenge', 4]},{dataRow: ["Limit", 5]}];
 var NGramarg = [{dataRow: ["Pattern", "der Esel"]},{dataRow: ["Limit", 10]}];
 var testarg4 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
+var arg = [{dataRow: ["Word", "Hottehü"]}, {dataRow: ["Limit", 5]}];
 
-query("Baseform",testarg2, function(err, callback){
+query("Wordforms",arg, function(err, callback){
     //console.log(callback);
     //console.log(underscore.flatten(create_results(callback)));
     console.log(create_results(callback));
 });
-*/
+
 
 //console.log(client.describe());
 //console.log(client.describe());
