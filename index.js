@@ -23,7 +23,12 @@ module.exports = {
         if(check_arguments(arguments,2)) {
             var arg = [{dataRow: ["Wort", word]}];
             query("Frequencies", arg, function (err, callback) {
-                cb(null, underscore.flatten(create_results(callback)));
+                var result = create_results(callback);
+                if (result){
+                    cb(null,underscore.flatten(result));
+                }else{
+                    cb(null,null);
+                }
             });
         }
     },
@@ -32,7 +37,12 @@ module.exports = {
         if(check_arguments(arguments,2)) {
             var arg = [{dataRow: ["Wort", word]}];
             query("Sachgebiet", arg, function (err, callback) {
-                cb(null, underscore.flatten(create_results(callback)));
+                var result = create_results(callback);
+                if (result){
+                    cb(null,underscore.flatten(result));
+                }else{
+                    cb(null,null);
+                }
             });
         }
     },
@@ -44,7 +54,12 @@ module.exports = {
             }
             var arg = [{dataRow: ["Word", word]}, {dataRow: ["Limit", limit]}];
             query("Wordforms", arg, function (err, callback) {
-                cb(null, underscore.flatten(create_results(callback)));
+                var result = create_results(callback);
+                if (result){
+                    cb(null,underscore.flatten(result));
+                }else{
+                    cb(null,null);
+                }
             });
         }
     },
@@ -57,7 +72,12 @@ module.exports = {
             }
             var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Limit", limit]}];
             query("Thesaurus", arg, function (err, callback) {
-                cb(null, underscore.flatten(create_results(callback)));
+                var result = create_results(callback);
+                if (result){
+                    cb(null,underscore.flatten(result));
+                }else{
+                    cb(null,null);
+                }
             });
         }
     },
