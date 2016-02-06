@@ -183,7 +183,7 @@ module.exports = {
             }
             var arg = [{dataRow: ["Wort", word]}, {dataRow: ["Wortart", postag]}, {dataRow: ["Limit", limit]}];
             query("RightCollocationFinder", arg, function (err, callback) {
-                return create_results(callback);
+                cb(null,create_results(callback));
             });
         }
     },
