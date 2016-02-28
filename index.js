@@ -270,7 +270,6 @@ function getOptions(name,arg){
     });
     return result;
 }
-
 //this function takes the name of desired service and the searchterm to create a soap client and execute the query
 function query(service,arg,cb) {
     var callParams = getOptions(service,arg);
@@ -278,14 +277,13 @@ function query(service,arg,cb) {
     var options = callParams[0];
     var body = callParams[1];
     var results =[];
-    //kind of a callback hell (note for me look into async)
     soap.createClient(url,options, function(err, client) {
-        client.setSecurity(new soap.BasicAuthSecurity(credentials[0], credentials[1]));
         if(err){
             console.log("Client create Error: "+err);
             cb (null,{Message:"Client create Error occured",Error: err});
         }else {
-            //console.log("Client created");
+            client.setSecurity(new soap.BasicAuthSecurity(credentials[0], credentials[1]));
+            console.log("Client created");
             client.execute(body, function(err, result) {
                 if(err){
                     console.log("query Error: "+err.body);
@@ -334,7 +332,6 @@ function create_results(res){
 //------------------------------------------------------------------------------------------------------------------------
 //test
 
-/*
 var testarg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Limit",5]}];
 var testarg2 = [{dataRow: ["Hottehü", []]}];
 var testarg3 = [{dataRow: ["Wort", "Hottehü"]},{dataRow: ["Limit", 10]}];
@@ -343,19 +340,21 @@ var Kookurrenzschnitt = [{dataRow: ["Wort 1", "Esel"]},{dataRow: ["Wort 2", "Kar
 var crossword = [{dataRow: ["Wort", "verkaufen"]},{dataRow: ['Wortlaenge', 4]},{dataRow: ["Limit", 5]}];
 var NGramarg = [{dataRow: ["Pattern", "der Esel"]},{dataRow: ["Limit", 10]}];
 var testarg4 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
-var arg = [{dataRow: ["Word", "Hottehü"]}, {dataRow: ["Limit", 5]}];
+//var arg = [{dataRow: ["Word", "Hottehü"]}, {dataRow: ["Limit", 5]}];
 
-query("Wordforms",arg, function(err, callback){
+var arg = [{dataRow: ["Wort","Autos"]}];
+
+
+query("Baseform",arg, function(err, callback){
     //console.log(callback);
     //console.log(underscore.flatten(create_results(callback)));
     console.log(create_results(callback));
 });
 
-*/
+
 //console.log(client.describe());
 //console.log(client.describe());
 //console.log(client); //all methods usable in the stub
-
 
 
 

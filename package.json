@@ -1,6 +1,6 @@
 {
   "name": "wl-api",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "description": "API for web services provided by the project Wortschatz, University of Leipzig",
   "main": "index.js",
   "scripts": {
