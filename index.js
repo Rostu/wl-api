@@ -331,7 +331,7 @@ function create_results(res){
 
 //------------------------------------------------------------------------------------------------------------------------
 //test
-
+/*
 var testarg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Limit",5]}];
 var testarg2 = [{dataRow: ["Hottehü", []]}];
 var testarg3 = [{dataRow: ["Wort", "Hottehü"]},{dataRow: ["Limit", 10]}];
@@ -356,5 +356,5 @@ query("Baseform",arg, function(err, callback){
 //console.log(client.describe());
 //console.log(client); //all methods usable in the stub
 
-
+*/
 
