@@ -332,7 +332,7 @@ function create_results(res){
 //------------------------------------------------------------------------------------------------------------------------
 //test
 /*
-var testarg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Limit",5]}];
+var testarg = [{dataRow: ["Wort", "platt"]},{dataRow: ["Limit",10]}];
 var testarg2 = [{dataRow: ["Hottehü", []]}];
 var testarg3 = [{dataRow: ["Wort", "Hottehü"]},{dataRow: ["Limit", 10]}];
 var coocurencearg = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Mindestsignifikanz", 200]},{dataRow: ["Limit", 10]}];
@@ -342,19 +342,19 @@ var NGramarg = [{dataRow: ["Pattern", "der Esel"]},{dataRow: ["Limit", 10]}];
 var testarg4 = [{dataRow: ["Wort", "Esel"]},{dataRow: ["Wortart", "A"]},{dataRow: ["Limit", 10]}];
 //var arg = [{dataRow: ["Word", "Hottehü"]}, {dataRow: ["Limit", 5]}];
 
-var arg = [{dataRow: ["Wort","Autos"]}];
+var arg = [{dataRow: ["Wort","flott"]}];
 
 
-query("Baseform",arg, function(err, callback){
+query("Synonyms",testarg, function(err, callback){
     //console.log(callback);
     //console.log(underscore.flatten(create_results(callback)));
     console.log(create_results(callback));
 });
-
+*/
 
 //console.log(client.describe());
 //console.log(client.describe());
 //console.log(client); //all methods usable in the stub
 
-*/
+
 
